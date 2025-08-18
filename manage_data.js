@@ -2,7 +2,12 @@ const fs = require('fs');
 const parse = require('./parser');
 const path = require('path');
 
-const DATA_FILE = path.join(__dirname, 'data.json');
+const APP_DIR = path.dirname(process.execPath);
+const DATA_DIR = path.join(APP_DIR, 'data');
+
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
+
+const DATA_FILE = path.join(DATA_DIR, 'data.json');
 
 function readData() {
   if (!fs.existsSync(DATA_FILE)) {
@@ -10,9 +15,7 @@ function readData() {
   }
 
   let content = fs.readFileSync(DATA_FILE, 'utf8').trim();
-  if (!content) {
-    return {};
-  }
+  if (!content) return {};
 
   try {
     return JSON.parse(content);

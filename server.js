@@ -3,14 +3,19 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const { validateData } = require('./manage_data');
-const git = require('isomorphic-git');
-
+const { check_auto_startup } = require('./auto_startup')
 const app = express();
 const port = 3000;
-const DATA_FILE = path.join(__dirname, 'data.json');
-const LOG_FILE = path.join(__dirname, 'log.txt');
-const REPO_DIR = path.resolve(__dirname, './build');
-const REPO_URL = 'https://github.com/user/repo.git';
+
+const APP_DIR = path.dirname(process.execPath);
+const DATA_DIR = path.join(APP_DIR, 'data');
+
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR);
+}
+
+const DATA_FILE = path.join(DATA_DIR, 'data.json');
+const LOG_FILE = path.join(DATA_DIR, 'log.txt');
 
 app.use(cors({
   origin: '*'
@@ -31,9 +36,7 @@ function readData() {
   }
 
   let content = fs.readFileSync(DATA_FILE, 'utf8').trim();
-  if (!content) {
-    return {};
-  }
+  if (!content) return {};
 
   try {
     return JSON.parse(content);
@@ -49,9 +52,7 @@ function writeData(data) {
 
 function manage_log(message) {
   fs.appendFile(LOG_FILE, message + '\n', err => {
-    if (err) {
-      console.error('Ошибка записи в лог:', err);
-    }
+    if (err) console.error('Ошибка записи в лог:', err);
   });
 }
 
@@ -132,59 +133,10 @@ app.post('/data-manage', (req, res) => {
   res.json({ status: 'OK', saved: !!data[info.name] });
 });
 
-async function checkAndUpdateRepo() {
-  try {
-    if (!fs.existsSync(REPO_DIR)) {
-      await git.clone({ fs, dir: REPO_DIR, url: REPO_URL });
-      console.log('Repo cloned');
-      return true;
-    }
-
-    await git.fetch({ fs, dir: REPO_DIR, url: REPO_URL });
-    
-    const status = await git.statusMatrix({ fs, dir: REPO_DIR });
-    let hasChanges = false;
-    for (const [file, , worktree, stage] of status) {
-      if (worktree !== stage) {
-        hasChanges = true;
-        break;
-      }
-    }
-
-    if (hasChanges) {
-      console.log('Changes detected, pulling updates...');
-      await git.pull({ fs, dir: REPO_DIR, url: REPO_URL, singleBranch: true, fastForwardOnly: true });
-      return true;
-    }
-
-    console.log('No changes detected.');
-    return false;
-  } catch (err) {
-    console.error('Error checking/updating repo:', err);
-    return false;
-  }
-}
-
-app.post('/check-updates', async (req, res) => {
-  const updated = await checkAndUpdateRepo();
-  if (updated) {
-    res.json({ status: true });
-
-    setTimeout(() => {
-      exec('node server.js', (err, stdout, stderr) => {
-        if (err) console.error(err);
-        console.log(stdout);
-        console.error(stderr);
-        process.exit(0);
-      });
-    }, 1000);
-  } else {
-    res.json({ status: false });
-  }
-});
-
 app.listen(port, () => {
   clear_log()
   validateData()
+  check_auto_startup()
+
   console.log(`Сервер запущен и слушает:\nhttp://localhost:${port}`);
 });

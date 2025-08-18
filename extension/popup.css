@@ -112,22 +112,3 @@ header {
 .info {
   color: #fff;
 }
-
-.updates_container {
-  display: none;
-  color: var(--accent-color);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-}
-
-.get_update_status {
-  width: 60%;
-  border-radius: 4px;
-  background: var(--accent-color);
-  border: none;
-  padding: 5px;
-  cursor: pointer;
-}
