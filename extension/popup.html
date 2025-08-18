@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Domain Reader</title>
+  <link rel="stylesheet" href="popup.css">
+
+</head>
+<body>
+  <header>
+    <button class="info header_btn a"><h3>Info</h3></button>
+    <button class="console header_btn"><h3>Console</h3></button>
+    <button class="updates header_btn"><h3>Updates</h3></button>
+  </header>
+  <div class="border_container"></div>
+  <div class="info_container container a">
+    <div class="serve_status">
+      <div class="header"><h1>Server Status</1></div>
+      <div class="content">
+        <div class="indicator"></div>
+        <h3 class="serve_status_info">Loading...</h3>
+      </div>
+      <h4 class="addition_info"></h4>
+    </div>
+  </div>
+  <div class="console_container container">
+    <div class="header"><h2>Debug Console</h2></div>
+    <div class="console_info_container"></div>
+  </div>
+  <div class="updates_container container">
+    <h2 class="Update Status">Loading...</h2>
+
+    <button class="get_update_status"><h3>Check Updates</h3></button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

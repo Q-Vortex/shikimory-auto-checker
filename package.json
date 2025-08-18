@@ -1,0 +1,36 @@
+{
+  "name": "shiki-mory-auto-check",
+  "version": "1.0.0",
+  "description": "Server for extension",
+  "bin": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5",
+    "isomorphic-git": "^1.33.0",
+    "pkg": "^5.8.1",
+    "puppeteer": "^24.16.2",
+    "unzipper": "^0.12.3"
+  },
+  "pkg": {
+    "scripts": [
+      "server.js",
+      "manage_data.js",
+      "parser.js"
+    ],
+    "assets": [
+      "manage_data.js",
+      "parser.js"
+    ],
+    "targets": [
+      "node18-win-x64",
+      "node18-macos-x64",
+      "node18-linux-x64"
+    ],
+    "outputPath": "dist"
+  }
+}

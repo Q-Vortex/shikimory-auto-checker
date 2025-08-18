@@ -1,0 +1,133 @@
+:root {
+  --background-main-color: #141414;
+  --container-main-color: #282828;
+  --accent-color: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 250px;
+  gap: 10px;
+  background-color: var(--background-main-color);
+}
+
+header {
+  display: flex;
+  padding: 5px;
+  background-color: var(--container-main-color);
+  border-radius: 8px;
+  gap: 5px;
+}
+
+.header_btn {
+  padding: 5px;
+  border-radius: 4px;
+  background: none;
+  font-weight: 600;
+  border: none;
+  width: 50%;
+  cursor: pointer;
+  color: var(--accent-color);
+  display: flex;
+  justify-content: center;
+}
+
+.header_btn.a {
+  background-color: var(--accent-color);
+  color: #141414;
+}
+
+.border_container {
+  width: 100%;
+  height: 5px;
+  background: #141414;
+  border-radius: 5px;
+  box-shadow: 0 .5px 3px .5px #00000073 inset, 0 -.5px 1.4px .8px #00000071 inset;
+}
+
+.container.a {
+  display: flex;
+}
+
+.info_container {
+  display: none;
+}
+
+.serve_status {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.serve_status .header { color: var(--accent-color); }
+
+.serve_status_info { color: var(--accent-color); }
+
+.addition_info { color: var(--accent-color); }
+
+.content {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.indicator {
+  width: 16px;
+  aspect-ratio: 1/1;
+  background: gray;
+  border-radius: 100%;
+}
+
+.console_container {
+  width: 100%;
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  background: #000;
+  position: relative;
+  padding: 8px;
+}
+
+.console_container .header {
+  color: var(--accent-color);
+}
+
+.console_info_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  color: #fff;
+}
+
+.updates_container {
+  display: none;
+  color: var(--accent-color);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.get_update_status {
+  width: 60%;
+  border-radius: 4px;
+  background: var(--accent-color);
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
