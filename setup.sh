@@ -2,7 +2,7 @@
 set -e
 
 # Detecting package manager
-if command -v apt &> /dev/null; then
+if command -v apt-get &> /dev/null; then
     PM="apt"
 elif command -v dnf &> /dev/null; then
     PM="dnf"

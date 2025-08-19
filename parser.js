@@ -347,4 +347,4 @@ async function getWathedEpisodesNum(AnimeName) {
   }
 }
 
-// module.exports = { setAnimeStatus, getAnimeStatus, getWathedEpisodesNum, removeAnime, IncrementSeriesNum }; 
+module.exports = { setAnimeStatus, getAnimeStatus, getWathedEpisodesNum, removeAnime, IncrementSeriesNum }; 
